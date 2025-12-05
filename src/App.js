@@ -88,9 +88,14 @@ function App() {
       setMsg(resp.data.msg);
       setEvent({ eventId: "", eventName: "", venue: "", capacity: "" });
       fetchEvents();
-    } catch (err) {
-      setMsg(err.message);
+    } catch(err) {
+       if (err.response) {
+          setMsg(err.response.data.msg); 
+        } else {
+          setMsg("Network Error");
+       }
     }
+
   };
 
   // DELETE Event (with validation)
@@ -109,8 +114,13 @@ function App() {
       setEvent({ eventId: "", eventName: "", venue: "", capacity: "" });
       fetchEvents();
     } catch (err) {
-      setMsg(err.message);
+    if (err.response) {
+      setMsg(err.response.data.msg);
+    } else {
+      setMsg("Network Error");
     }
+  }
+
   };
 
   // When user clicks a card, data fills into input fields
